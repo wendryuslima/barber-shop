@@ -16,7 +16,10 @@ const Header = () => {
   return (
     <Card>
       <CardContent className="flex flex-row items-center justify-between p-5">
-        <Image src="/logo.png" alt="logo" height={18} width={120} />
+        <div className="flex items-center gap-2">
+          <Image src="/logo.png3.jpg" alt="logo" height={18} width={80} />
+          <p className="text-xl text-primary">Shop</p>
+        </div>
 
         <Button variant="ghost" size="icon">
           <MenuIcon onClick={handleMenuClick} />
