@@ -1,13 +1,15 @@
-import { SearchIcon } from "lucide-react"
 import Header from "./_components/header"
 import { Input } from "./_components/ui/input"
 import { Button } from "./_components/ui/button"
 import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
-import { Badge } from "./_components/ui/badge"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
+
 import { db } from "./_lib/prisma"
 import BarberShopItem from "./_components/barbershop-item"
+import quickSearchOptions from "./_constants/search"
+
+import BookingItem from "./_components/booking-item"
+import { SearchIcon } from "lucide-react"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -31,26 +33,18 @@ const Home = async () => {
             </Button>
           </div>
 
-          <div className="mt-6 flex w-full items-center gap-3">
-            <Button className="gap-2" variant="secondary">
-              <Image src="/cabelo.png" alt="cabelo" width={16} height={16} />
-              Cabelo
-            </Button>
-
-            <Button className="gap-2" variant="secondary">
-              <Image src="/barba.svg" alt="cabelo" width={16} height={16} />
-              Barba
-            </Button>
-
-            <Button className="gap-2" variant="secondary">
-              <Image
-                src="/sombrancelha.svg"
-                alt="cabelo"
-                width={16}
-                height={16}
-              />
-              Acabamento
-            </Button>
+          <div className="mt-6 flex items-center gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+            {quickSearchOptions.map((option) => (
+              <Button className="gap-2" variant="secondary" key={option.title}>
+                <Image
+                  src={option.imageUrl}
+                  alt="Options"
+                  width={16}
+                  height={16}
+                />
+                {option.title}
+              </Button>
+            ))}
           </div>
 
           <div className="relative mt-6 flex h-[150px] w-full">
@@ -62,32 +56,12 @@ const Home = async () => {
             />
           </div>
 
-          <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-            Agendamentos
-          </h2>
-          <Card>
-            <CardContent className="flex justify-between p-0">
-              {/* {Esquerda} */}
-              <div className="flex flex-col gap-2 py-5 pl-5">
-                <Badge>Confirmado</Badge>
-                <h3>Corte de cabelo</h3>
-
-                <div className="flex items-center gap-2 py-3">
-                  <Avatar className="h-6 w-6">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                  </Avatar>
-                  <p className="text-sm">Vintage Barber</p>
-                </div>
-              </div>
-
-              {/* {Direita} */}
-              <div className="flex flex-col items-center justify-center gap-3 border-l-2 border-solid px-5 pr-5">
-                <p className="text-sm">Setembro</p>
-                <p className="text-xl">06</p>
-                <p className="text-sm">09:45</p>
-              </div>
-            </CardContent>
-          </Card>
+          <div>
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+              Agendamentos
+            </h2>
+            <BookingItem />
+          </div>
 
           <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
             Recomendados
@@ -109,6 +83,7 @@ const Home = async () => {
             ))}
           </div>
         </div>
+
         <footer>
           <Card className="mt-6">
             <CardContent className="px-5 py-6">
