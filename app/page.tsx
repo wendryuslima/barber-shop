@@ -2,7 +2,6 @@ import Header from "./_components/header"
 import { Input } from "./_components/ui/input"
 import { Button } from "./_components/ui/button"
 import Image from "next/image"
-import { Card, CardContent } from "./_components/ui/card"
 
 import { db } from "./_lib/prisma"
 import BarberShopItem from "./_components/barbershop-item"
@@ -83,17 +82,6 @@ const Home = async () => {
             ))}
           </div>
         </div>
-
-        <footer>
-          <Card className="mt-6">
-            <CardContent className="px-5 py-6">
-              <p className="text-sm text-gray-400">
-                {" "}
-                © 2023 Copyright FSW Barber
-              </p>
-            </CardContent>
-          </Card>
-        </footer>
       </>
     </div>
   )
