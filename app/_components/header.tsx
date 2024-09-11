@@ -2,17 +2,13 @@
 
 import Image from "next/image"
 import { Card, CardContent } from "./ui/card"
+
+import MenuItem from "./menu-item"
+import { Sheet, SheetTrigger } from "./ui/sheet"
 import { Button } from "./ui/button"
 import { MenuIcon } from "lucide-react"
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
-import { useState } from "react"
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleMenuClick = () => {
-    setIsOpen(true)
-  }
   return (
     <Card>
       <CardContent className="flex flex-row items-center justify-between p-5">
@@ -21,18 +17,15 @@ const Header = () => {
           <p className="text-xl text-primary">Shop</p>
         </div>
 
-        <Button variant="ghost" size="icon">
-          <MenuIcon onClick={handleMenuClick} />
-        </Button>
+        <Sheet>
+          <SheetTrigger>
+            <Button size="icon" variant="outline">
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <MenuItem />
+        </Sheet>
       </CardContent>
-
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
-          </SheetHeader>
-        </SheetContent>
-      </Sheet>
     </Card>
   )
 }

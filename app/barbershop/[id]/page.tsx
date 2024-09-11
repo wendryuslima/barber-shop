@@ -1,6 +1,9 @@
+import MenuItem from "@/app/_components/menu-item"
 import PhoneItem from "@/app/_components/phone-item"
 import ServiceItem from "@/app/_components/service-item"
 import { Button } from "@/app/_components/ui/button"
+import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet"
+
 import { db } from "@/app/_lib/prisma"
 import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react"
 import Image from "next/image"
@@ -47,15 +50,18 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
           </Link>
         </Button>
 
-        <Button
-          size="icon"
-          variant="secondary"
-          className="absolute right-4 top-4"
-        >
-          <Link href="/">
-            <MenuIcon />
-          </Link>
-        </Button>
+        <Sheet>
+          <SheetTrigger>
+            <Button
+              size="icon"
+              variant="outline"
+              className="absolute right-4 top-4"
+            >
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <MenuItem />
+        </Sheet>
       </div>
 
       <div className="border-b border-solid p-5">

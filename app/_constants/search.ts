@@ -2,7 +2,6 @@ interface quickSearchOptions {
   imageUrl: string
   title: string
 }
-
 const quickSearchOptions: quickSearchOptions[] = [
   {
     imageUrl: "/cabelo.png",
