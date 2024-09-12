@@ -1,7 +1,9 @@
+"use client"
+
 import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from "lucide-react"
 import { Button } from "./ui/button"
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
-// import { Avatar, AvatarImage } from "./ui/avatar"
+import { Avatar, AvatarImage } from "./ui/avatar"
 import Link from "next/link"
 import quickSearchOptions from "../_constants/search"
 import Image from "next/image"
@@ -13,8 +15,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog"
+import { signIn, signOut, useSession } from "next-auth/react"
 
 const MenuItem = () => {
+  const { data } = useSession()
+  const handleLoginWithGoogleClick = () => signIn("google")
+  const handleLogoutClick = () => signOut()
+
   return (
     <SheetContent className="overflow-y-scroll">
       <SheetHeader>
@@ -22,35 +29,51 @@ const MenuItem = () => {
       </SheetHeader>
 
       <div className="flex items-center justify-between gap-2 border-b border-solid py-5">
-        <h2 className="flex font-bold">Olá, faça seu loguin</h2>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button size="icon">
-              <LogInIcon />
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="w-[90%]">
-            <DialogHeader>
-              <DialogTitle>Faça seu login na plataforma</DialogTitle>
-              <DialogDescription>
-                Conect-se usando sua conta do Google
-              </DialogDescription>
-            </DialogHeader>
+        {data?.user ? (
+          <div className="flex items-center gap-2">
+            <Avatar>
+              <AvatarImage src={data?.user?.image ?? ""} />
+            </Avatar>
 
-            <Button variant="outline" className="flex gap-2 font-bold">
-              <Image src="/google.svg" width={18} height={18} alt="google" />
-              Google
-            </Button>
-          </DialogContent>
-        </Dialog>
-        {/* <Avatar>
-          <AvatarImage src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
-        </Avatar>
+            <div className="flex flex-col">
+              <p className="font-bold">{data.user.name}</p>
+              <p className="text-xs text-gray-400">{data.user.email}</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            <h2 className="flex font-bold">Olá, faça seu loguin</h2>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="icon">
+                  <LogInIcon />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="w-[90%]">
+                <DialogHeader>
+                  <DialogTitle>Faça seu login na plataforma</DialogTitle>
+                  <DialogDescription>
+                    Conect-se usando sua conta do Google
+                  </DialogDescription>
+                </DialogHeader>
 
-        <div className="flex flex-col">
-          <p className="font-bold">Wendryus Lima</p>
-          <p className="text-xs text-gray-400">wendryuslima31@gmail.com</p>
-        </div> */}
+                <Button
+                  onClick={handleLoginWithGoogleClick}
+                  variant="outline"
+                  className="flex gap-2 font-bold"
+                >
+                  <Image
+                    src="/google.svg"
+                    width={18}
+                    height={18}
+                    alt="google"
+                  />
+                  Google
+                </Button>
+              </DialogContent>
+            </Dialog>
+          </>
+        )}
       </div>
 
       <div className="flex flex-col gap-4 border-b border-solid py-5">
@@ -83,7 +106,11 @@ const MenuItem = () => {
       </div>
 
       <div className="flex flex-col gap-4 border-b border-solid py-5">
-        <Button className="justify-start gap-2" variant="ghost">
+        <Button
+          className="justify-start gap-2"
+          variant="ghost"
+          onClick={handleLogoutClick}
+        >
           <LogOutIcon size={18} />
           Sair da conta
         </Button>
