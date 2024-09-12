@@ -94,14 +94,19 @@ const MenuItem = () => {
 
       <div className="flex flex-col gap-4 border-b border-solid py-5">
         {quickSearchOptions.map((option) => (
-          <Button
-            key={option.title}
-            className="justify-start gap-2"
-            variant="ghost"
-          >
-            <Image src={option.imageUrl} height={18} width={18} alt="Menu" />
-            {option.title}
-          </Button>
+          <SheetClose asChild key={option.title}>
+            <Button className="justify-start gap-2" variant="ghost" asChild>
+              <Link href={`/barbershop?search=${option.title}`}>
+                <Image
+                  src={option.imageUrl}
+                  height={18}
+                  width={18}
+                  alt="Menu"
+                />
+                {option.title}
+              </Link>
+            </Button>
+          </SheetClose>
         ))}
       </div>
 
