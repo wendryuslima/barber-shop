@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "../_lib/auth"
 
 interface CreateBookingParams {
+  userId: string
   serviceId: string
   date: Date
 }

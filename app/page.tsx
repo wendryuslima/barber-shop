@@ -11,14 +11,38 @@ import BookingItem from "./_components/booking-item"
 
 import Search from "./_components/search"
 import Link from "next/link"
+import { authOptions } from "./_lib/auth"
+import { getServerSession } from "next-auth"
 
 const Home = async () => {
+  const session = await getServerSession(authOptions)
   const barbershops = await db.barbershop.findMany({})
   const popularsBarberShop = await db.barbershop.findMany({
     orderBy: {
       name: "desc",
     },
   })
+
+  const confirmedBookinhs = session?.user
+    ? await db.booking.findMany({
+        where: {
+          userId: (session.user as any).id,
+          date: {
+            gte: new Date(),
+          },
+        },
+        include: {
+          service: {
+            include: {
+              barbershop: true,
+            },
+          },
+        },
+        orderBy: {
+          date: "asc",
+        },
+      })
+    : []
   return (
     <div>
       <>
@@ -61,11 +85,15 @@ const Home = async () => {
             />
           </div>
 
-          <div>
-            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          <div className="mt-3">
+            <h1 className="text-xs font-bold uppercase text-gray-400">
               Agendamentos
-            </h2>
-            <BookingItem />
+            </h1>
+          </div>
+          <div className="mt-5 flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+            {confirmedBookinhs.map((booking) => (
+              <BookingItem key={booking.id} booking={booking} />
+            ))}
           </div>
 
           <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
