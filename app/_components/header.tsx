@@ -15,9 +15,8 @@ const Header = () => {
       <CardContent className="flex flex-row items-center justify-between p-5">
         <div className="flex items-center gap-2">
           <Link href="/">
-            <Image src="/logo.png3.jpg" alt="logo" height={18} width={80} />
+            <Image src="/logo.png" alt="logo" height={100} width={100} />
           </Link>
-          <p className="text-xl text-primary">Shop</p>
         </div>
 
         <Sheet>
