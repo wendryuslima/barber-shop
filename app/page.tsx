@@ -13,6 +13,9 @@ import Search from "./_components/search"
 import Link from "next/link"
 import { authOptions } from "./_lib/auth"
 import { getServerSession } from "next-auth"
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
+;<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
@@ -48,14 +51,17 @@ const Home = async () => {
       <>
         <Header />
         <div className="p-5">
-          <h2 className="text-xl font-bold">Olá, Wendryus</h2>
-          <p>Segunda-feira, 9 de setembro</p>
+          <h2 className="text-xl font-bold">
+            Olá,{" "}
+            {session?.user ? session.user.name : "Bem vindo, faça seu login"}
+          </h2>
+          <p>{format(new Date(), "EEE, dd 'de' MMMM", { locale: ptBR })}</p>
 
           <div className="mt-6">
             <Search />
           </div>
 
-          <div className="mt-6 flex items-center gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          <div className="mt-6 flex items-center gap-3 overflow-x-scroll md:w-full md:items-center md:justify-center [&::-webkit-scrollbar]:hidden">
             {quickSearchOptions.map((option) => (
               <Button
                 className="gap-2"
@@ -76,12 +82,12 @@ const Home = async () => {
             ))}
           </div>
 
-          <div className="relative mt-6 flex h-[150px] w-full">
+          <div className="relative mt-6 flex h-[150px] w-full md:flex md:w-[50%] md:items-center md:justify-center">
             <Image
               src="/banner-01.png"
               alt="banner"
               fill
-              className="rounded-xl object-cover"
+              className="rounded-xl object-cover md:flex md:w-[50%] md:items-center md:justify-center"
             />
           </div>
 
