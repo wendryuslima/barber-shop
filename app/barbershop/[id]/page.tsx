@@ -29,11 +29,12 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
   if (!barbershop) {
     return notFound()
   }
+
   return (
     <div>
       <div className="relative h-[250px] w-full">
         <Image
-          src={barbershop?.imageUrl}
+          src={barbershop.imageUrl}
           fill
           className="object-cover"
           alt="barber"
@@ -65,10 +66,10 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
       </div>
 
       <div className="border-b border-solid p-5">
-        <h1 className="mb-6 text-xl font-bold">{barbershop?.name}</h1>
+        <h1 className="mb-6 text-xl font-bold">{barbershop.name}</h1>
         <div className="mb-2 flex items-center gap-1">
           <MapPinIcon className="text-primary" size={18} />
-          <p className="text-sm">{barbershop?.address}</p>
+          <p className="text-sm">{barbershop.address}</p>
         </div>
 
         <div className="flex items-center gap-1">
@@ -79,7 +80,7 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
 
       <div className="space-y-3 border-b border-solid p-5">
         <h2 className="text-xs font-bold uppercase text-gray-400">Sobre nós</h2>
-        <p className="text-sm">{barbershop?.description}</p>
+        <p className="text-sm">{barbershop.description}</p>
       </div>
 
       <div className="p-5">
