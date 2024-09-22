@@ -10,45 +10,50 @@ interface BarberShopPageProps {
 }
 
 const BarberShopPage = async ({ searchParams }: BarberShopPageProps) => {
-  const barbershops = await db.barbershop.findMany({
-    where: {
-      OR: [
-        {
-          name: {
-            contains: searchParams?.search,
-            mode: "insensitive",
+  try {
+    const barbershops = await db.barbershop.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: searchParams?.search,
+              mode: "insensitive",
+            },
           },
-        },
-        {
-          services: {
-            some: {
-              name: {
-                contains: searchParams?.search,
-                mode: "insensitive",
+          {
+            services: {
+              some: {
+                name: {
+                  contains: searchParams?.search,
+                  mode: "insensitive",
+                },
               },
             },
           },
-        },
-      ],
-    },
-  })
-  return (
-    <div>
-      <Header />
-      <div className="my-6 px-5">
-        <Search />
-      </div>
-      <div className="px-5">
-        <h2>Resultados para {searchParams.search}</h2>
+        ],
+      },
+    })
 
-        <div className="grid grid-cols-2 gap-4 md:flex md:overflow-x-auto md:[&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
-            <BarberShopItem barbershop={barbershop} key={barbershop.id} />
-          ))}
+    return (
+      <div>
+        <Header />
+        <div className="my-6 px-5">
+          <Search />
+        </div>
+        <div className="px-5">
+          <h2>Resultados para {searchParams.search}</h2>
+          <div className="grid grid-cols-2 gap-4 md:flex md:overflow-x-auto md:[&::-webkit-scrollbar]:hidden">
+            {barbershops.map((barbershop) => (
+              <BarberShopItem barbershop={barbershop} key={barbershop.id} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } catch (error) {
+    console.error("Erro ao buscar barbearias:", error)
+    return <div>Error loading barbershops</div>
+  }
 }
 
 export default BarberShopPage
