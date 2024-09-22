@@ -5,7 +5,10 @@ const Footer = () => {
     <footer>
       <Card className="mt-6">
         <CardContent className="px-5 py-6">
-          <p className="text-sm text-gray-400"> © 2023 Copyright FSW Barber</p>
+          <p className="text-sm text-gray-400">
+            {" "}
+            © 2023 Copyright Barber-shop
+          </p>
         </CardContent>
       </Card>
     </footer>
