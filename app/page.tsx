@@ -82,12 +82,12 @@ const Home = async () => {
             ))}
           </div>
 
-          <div className="relative mt-6 flex h-[150px] w-full md:flex md:w-[50%] md:items-center md:justify-center">
+          <div className="relative mt-6 flex h-[150px] w-full md:mx-auto md:w-[50%] md:items-center md:justify-center">
             <Image
               src="/banner-01.png"
               alt="banner"
               fill
-              className="rounded-xl object-cover md:flex md:w-[50%] md:items-center md:justify-center"
+              className="rounded-xl object-cover"
             />
           </div>
 
