@@ -36,7 +36,7 @@ const MenuItem = () => {
           </div>
         ) : (
           <>
-            <h2 className="flex font-bold">Olá, faça seu loguin</h2>
+            <h2 className="flex font-bold">Olá, faça seu login</h2>
             <Dialog>
               <DialogTrigger asChild>
                 <Button size="icon">
