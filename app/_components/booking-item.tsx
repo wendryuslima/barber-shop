@@ -30,6 +30,7 @@ import {
 import deleteBooking from "../_actions/delete-booking"
 import { toast } from "sonner"
 import { useState } from "react"
+;<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -66,7 +67,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
   }
   return (
     <Sheet open={isSheetOpen} onOpenChange={handleCloseSheet}>
-      <SheetTrigger className="w-full">
+      <SheetTrigger className="w-full min-w-[90%] md:min-w-[40%]">
         <Card className="min-w-[90%]">
           <CardContent className="flex items-center justify-between p-0">
             {/* {Esquerda} */}
