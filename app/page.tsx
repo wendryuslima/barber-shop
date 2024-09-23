@@ -53,7 +53,7 @@ const Home = async () => {
         <div className="p-5">
           <h2 className="text-xl font-bold">
             Olá,{" "}
-            {session?.user ? session.user.name : "Bem vindo, faça seu login"}
+            {session?.user ? session.user.name : "bem vindo, faça seu login"}
           </h2>
           <p>{format(new Date(), "EEE, dd 'de' MMMM", { locale: ptBR })}</p>
 
