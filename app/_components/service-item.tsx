@@ -159,16 +159,16 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
               <Image
                 src={service.imageUrl}
                 fill
-                className="object cover rounded-lg"
+                className="rounded-lg object-cover"
                 alt={service.name}
               />
             </div>
 
-            <div>
-              <h3 className="font-semibold">{service.description}</h3>
+            <div className="flex w-full flex-col justify-between">
+              <h3 className="font-semibold">{service.name}</h3>
               <p className="text-sm text-gray-400">{service.description}</p>
 
-              <div className="flex items-center justify-between">
+              <div className="mt-auto flex items-center justify-between">
                 <p className="text-sm font-bold text-primary">
                   {Intl.NumberFormat("pt-br", {
                     style: "currency",
@@ -184,6 +184,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     onClick={handleoBookingClick}
                     variant="secondary"
                     size="sm"
+                    className="mt-auto" // Garante que o botão ficará no final
                   >
                     Reservar
                   </Button>
@@ -193,7 +194,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                       <SheetTitle>Fazer reserva</SheetTitle>
                     </SheetHeader>
 
-                    <div className="borber-b border-solid py-5">
+                    <div className="border-b border-solid py-5">
                       <Calendar
                         mode="single"
                         selected={selectedDay}
@@ -242,7 +243,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                             </Button>
                           ))
                         ) : (
-                          <p className="text-xs">Não há horários disponiveis</p>
+                          <p className="text-xs">Não há horários disponíveis</p>
                         )}
                       </div>
                     )}
@@ -271,7 +272,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                             </div>
 
                             <div className="flex items-center justify-between">
-                              <h2 className="text-sm text-gray-400">Horario</h2>
+                              <h2 className="text-sm text-gray-400">Horário</h2>
                               <p className="text-sm">{selectedTime}</p>
                             </div>
 

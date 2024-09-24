@@ -129,7 +129,9 @@ const Home = async () => {
 
               <div className="flex-1 md:w-[275px] lg:w-[520px] xl:w-[600px]">
                 <div className="space-y-3 pt-6 md:pt-0">
-                  <h2 className="text-2xl font-bold uppercase">Recomendados</h2>
+                  <h2 className="text-gray-400 md:text-2xl md:font-bold md:uppercase">
+                    Recomendados
+                  </h2>
                   <BarbershopCarousel barbershops={barbershops} />
                 </div>
               </div>
@@ -139,7 +141,9 @@ const Home = async () => {
 
         <div className="mx-auto max-w-[1440px] px-5 md:px-8">
           <div className="space-y-3 pt-6 md:pt-10">
-            <h2 className="title-separator">Populares</h2>
+            <h2 className="text-gray-400 md:text-2xl md:font-bold md:uppercase">
+              Populares
+            </h2>
             <BarbershopCarousel barbershops={popularsBarberShop} />
           </div>
         </div>
