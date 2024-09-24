@@ -189,42 +189,50 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     Reservar
                   </Button>
 
-                  <SheetContent className="overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+                  <SheetContent className="max-w-3xl overflow-x-scroll md:w-full [&::-webkit-scrollbar]:hidden">
                     <SheetHeader>
                       <SheetTitle>Fazer reserva</SheetTitle>
                     </SheetHeader>
 
-                    <div className="border-b border-solid py-5">
-                      <Calendar
-                        mode="single"
-                        selected={selectedDay}
-                        fromDate={new Date()}
-                        onSelect={handleDateSelect}
-                        styles={{
-                          head_cell: {
-                            width: "100%",
-                            textTransform: "capitalize",
-                          },
-                          cell: {
-                            width: "100%",
-                          },
-                          button: {
-                            width: "100%",
-                          },
-                          nav_button_previous: {
-                            width: "32px",
-                            height: "32px",
-                          },
-                          nav_button_next: {
-                            width: "32px",
-                            height: "32px",
-                          },
-                          caption: {
-                            textTransform: "capitalize",
-                          },
-                        }}
-                        locale={ptBR}
-                      ></Calendar>
+                    <div className="p-5">
+                      <div className="md:calendar-container px-4 md:w-full">
+                        {/* Calendário com grid fixo e ocupando espaço maior */}
+                        <Calendar
+                          mode="single"
+                          selected={selectedDay}
+                          fromDate={new Date()}
+                          onSelect={handleDateSelect}
+                          styles={{
+                            head_cell: {
+                              textTransform: "capitalize",
+                            },
+                            cell: {
+                              width: "auto", // Remove o width fixo
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            },
+                            button: {
+                              width: "100%",
+                              height: "auto",
+                              padding: "10px", // Dá mais espaço aos botões
+                            },
+                            nav_button_previous: {
+                              width: "32px",
+                              height: "32px",
+                            },
+                            nav_button_next: {
+                              width: "32px",
+                              height: "32px",
+                            },
+                            caption: {
+                              textTransform: "capitalize",
+                            },
+                          }}
+                          locale={ptBR}
+                          className="md:grid md:w-full md:grid-cols-7 md:gap-3 md:text-center" // Mais espaçamento entre os dias
+                        />
+                      </div>
                     </div>
 
                     {selectedDay && (
