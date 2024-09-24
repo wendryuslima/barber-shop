@@ -168,7 +168,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
               <h3 className="font-semibold">{service.name}</h3>
               <p className="text-sm text-gray-400">{service.description}</p>
 
-              <div className="mt-auto flex items-center justify-between">
+              {/* Bloco de preço e botão */}
+              <div className="mt-3 flex flex-col items-start gap-2">
                 <p className="text-sm font-bold text-primary">
                   {Intl.NumberFormat("pt-br", {
                     style: "currency",
@@ -184,7 +185,6 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     onClick={handleoBookingClick}
                     variant="secondary"
                     size="sm"
-                    className="mt-auto" // Garante que o botão ficará no final
                   >
                     Reservar
                   </Button>
