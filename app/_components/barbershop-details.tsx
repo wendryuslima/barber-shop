@@ -11,13 +11,20 @@ const BarberShopDetails = ({ barbershop }: BarberShopDetailsProp) => {
   return (
     <>
       <div className="relative mt-5 flex h-[180px] w-full items-end">
-        <Image src="/map.png" alt="barber" fill className="object-cover" />
+        <Image
+          src="/map.png"
+          alt="barber"
+          fill
+          className="object-cover"
+          quality={90}
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
 
         <Card className="z-50 mx-5 mb-3 w-full">
           <CardContent className="px-5 py-3">
             <div className="flex items-center gap-3">
               <Avatar>
-                <AvatarImage src={barbershop.imageUrl} />
+                <AvatarImage src={barbershop.imageUrl} alt={barbershop.name} />
               </Avatar>
 
               <div>

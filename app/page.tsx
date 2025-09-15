@@ -22,16 +22,13 @@ import Header from "./_components/header"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
-  // Recomendados: primeiras 6 barbearias
-  const barbershops = await db.barbershop.findMany({
-    take: 6,
-  })
 
-  // Populares: barbearias com mais agendamentos (ou aleatórias se não houver agendamentos)
+  const barbershops = await db.barbershop.findMany({})
+
   const popularsBarberShop = await db.barbershop.findMany({
     take: 6,
     orderBy: {
-      name: "asc", // Por enquanto aleatório, depois implementar por agendamentos
+      name: "desc",
     },
   })
 

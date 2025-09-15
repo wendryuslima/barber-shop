@@ -62,12 +62,15 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         {/* Seção de Imagem e Detalhes */}
         <div className="w-full md:w-7/12">
           {/* IMAGEM */}
-          <div className="relative h-[250px] w-full md:flex">
+          <div className="relative h-[250px] w-full md:flex md:h-[400px]">
             <Image
               alt={barbershop.name}
               src={barbershop?.imageUrl}
               fill
               className="object-cover md:rounded-md"
+              quality={95}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
+              priority
             />
 
             <Button
