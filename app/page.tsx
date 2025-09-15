@@ -22,17 +22,23 @@ import Header from "./_components/header"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
-  const barbershops = await db.barbershop.findMany({})
+  // Recomendados: primeiras 6 barbearias
+  const barbershops = await db.barbershop.findMany({
+    take: 6,
+  })
+
+  // Populares: barbearias com mais agendamentos (ou aleatórias se não houver agendamentos)
   const popularsBarberShop = await db.barbershop.findMany({
+    take: 6,
     orderBy: {
-      name: "desc",
+      name: "asc", // Por enquanto aleatório, depois implementar por agendamentos
     },
   })
 
   const confirmedBookings = session?.user
     ? await db.booking.findMany({
         where: {
-          userId: (session.user as any).id,
+          userId: (session.user as { id: string }).id,
           date: {
             gte: new Date(),
           },

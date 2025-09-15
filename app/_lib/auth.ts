@@ -1,9 +1,9 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
-
 import GoogleProvider from "next-auth/providers/google"
 import { AuthOptions } from "next-auth"
 import { Adapter } from "next-auth/adapters"
 import { db } from "./prisma"
+import { SessionUser } from "../_types/auth"
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
@@ -18,7 +18,7 @@ export const authOptions: AuthOptions = {
       session.user = {
         ...session.user,
         id: user.id,
-      } as any
+      } as SessionUser
       return session
     },
   },

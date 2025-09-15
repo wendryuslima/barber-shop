@@ -84,22 +84,32 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   )
   const [dayBookings, setDayBookings] = useState<Booking[]>([])
   const [bookingSheetIsOpen, setbookingSheetIsOpen] = useState(false)
+  const [isLoadingBookings, setIsLoadingBookings] = useState(false)
+  const [isCreatingBooking, setIsCreatingBooking] = useState(false)
 
   useEffect(() => {
     const fetch = async () => {
       if (!selectedDay) return
 
-      const bookings = await getBookings({
-        date: selectedDay,
-        serviceId: service.id,
-      })
-      setDayBookings(bookings)
+      setIsLoadingBookings(true)
+      try {
+        const bookings = await getBookings({
+          date: selectedDay,
+          serviceId: service.id,
+        })
+        setDayBookings(bookings)
+      } catch (error) {
+        console.error("Erro ao buscar agendamentos:", error)
+        toast.error("Erro ao carregar horários disponíveis")
+      } finally {
+        setIsLoadingBookings(false)
+      }
     }
 
     fetch()
   }, [selectedDay, service.id])
 
-  const handleoBookingClick = () => {
+  const handleBookingClick = () => {
     if (data?.user) {
       return setbookingSheetIsOpen(true)
     }
@@ -124,6 +134,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const handleCrateBooking = async () => {
     try {
       if (!selectedDay || !selectedTime) return
+
+      setIsCreatingBooking(true)
       const hour = Number(selectedTime.split(":")[0])
       const minutes = Number(selectedTime.split(":")[1])
       const newDate = set(selectedDay, {
@@ -132,13 +144,16 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       })
       await createBooking({
         serviceId: service.id,
-        userId: (data?.user as any).id,
+        userId: (data?.user as { id: string }).id,
         date: newDate,
       })
       toast.success("Reserva criada com sucesso!")
+      setbookingSheetIsOpen(false)
     } catch (error) {
       console.error(error)
-      toast.error("Erro ao reservar")
+      toast.error(error instanceof Error ? error.message : "Erro ao reservar")
+    } finally {
+      setIsCreatingBooking(false)
     }
   }
 
@@ -182,7 +197,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   onOpenChange={handleBookSheetOpenChange}
                 >
                   <Button
-                    onClick={handleoBookingClick}
+                    onClick={handleBookingClick}
                     variant="secondary"
                     size="sm"
                   >
@@ -237,7 +252,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                     {selectedDay && (
                       <div className="mb-5 flex gap-3 overflow-x-auto border-b border-solid pb-5 [&::-webkit-scrollbar]:hidden">
-                        {timeList.length > 0 ? (
+                        {isLoadingBookings ? (
+                          <p className="text-xs">Carregando horários...</p>
+                        ) : timeList.length > 0 ? (
                           timeList.map((time) => (
                             <Button
                               className="rounded-full"
@@ -298,8 +315,12 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     {selectedDay && selectedTime && (
                       <SheetFooter className="px-5">
                         <SheetClose asChild>
-                          <Button type="submit" onClick={handleCrateBooking}>
-                            Confirmar
+                          <Button
+                            type="submit"
+                            onClick={handleCrateBooking}
+                            disabled={isCreatingBooking}
+                          >
+                            {isCreatingBooking ? "Criando..." : "Confirmar"}
                           </Button>
                         </SheetClose>
                       </SheetFooter>
