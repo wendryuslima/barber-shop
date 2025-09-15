@@ -73,7 +73,7 @@ const MenuItem = () => {
         {quickSearchOptions.map((option) => (
           <SheetClose asChild key={option.title}>
             <Button className="justify-start gap-2" variant="ghost" asChild>
-              <Link href={`/barbershop?search=${option.title}`}>
+              <Link href={`/barbershop?service=${option.title}`}>
                 <Image
                   src={option.imageUrl}
                   height={18}

@@ -88,7 +88,7 @@ const Home = async () => {
                       className="flex w-fit shrink-0 items-center gap-2.5 bg-card"
                       asChild
                     >
-                      <Link href={`/barbershops?service=${item.title}`}>
+                      <Link href={`/barbershop?service=${item.title}`}>
                         <Image
                           src={item.imageUrl}
                           alt={item.title}

@@ -26,7 +26,7 @@ const Search = () => {
   const router = useRouter()
 
   const handleSearchClick = (data: z.infer<typeof formSchema>) => {
-    router.push(`/barbershop?search=${data.search}`)
+    router.push(`/barbershop?title=${data.search}`)
   }
 
   return (
