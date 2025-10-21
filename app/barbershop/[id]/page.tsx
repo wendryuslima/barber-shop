@@ -122,7 +122,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
 
           {/* SERVIÇOS */}
           <div className="flex flex-col space-y-3 border-b border-solid">
-            <h2 className="text-xs font-bold uppercase text-gray-400">
+            <h2 className="mt-4 text-xs font-bold uppercase text-gray-400">
               Serviços
             </h2>
             <div className="space-y-3">

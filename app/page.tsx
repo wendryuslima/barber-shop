@@ -27,9 +27,6 @@ const Home = async () => {
 
   const popularsBarberShop = await db.barbershop.findMany({
     take: 6,
-    orderBy: {
-      name: "desc",
-    },
   })
 
   const confirmedBookings = session?.user
